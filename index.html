@@ -90,8 +90,27 @@
             }
         }
 
-        // Run the check when the page loads
-        window.onload = checkUrlForPopup;
+        // Function to update URL without reloading the page
+        function updateURLParam() {
+            const currentURL = window.location.href;
+            if (!currentURL.includes("?showPopup=true")) {
+                window.history.pushState({}, "", currentURL + "?showPopup=true");
+            }
+        }
+
+        // Check URL and open popup on page load
+        window.onload = function() {
+            checkUrlForPopup();
+        };
+
+        // Handle the Figma link click to update the URL and trigger popup
+        document.getElementById('figma-iframe').contentWindow.postMessage(
+            {
+                type: 'linkClicked',
+                url: 'https://sarimnaeem2010.github.io/solvedbysarim/?showPopup=true'
+            }, 
+            '*'
+        );
     </script>
 
 </body>
