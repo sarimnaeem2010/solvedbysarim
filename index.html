@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Figma Prototype with Popup</title>
+    <title>Figma Prototype with Popup</title>
     <style>
         /* Styling for iframe */
         .figma-container {
@@ -18,7 +18,7 @@
             border: none;
         }
 
-        /* Styling for the popup overlay */
+        /* Popup styles */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -57,20 +57,16 @@
 </head>
 <body>
 
+    <!-- Figma Prototype Embedded -->
     <div class="figma-container">
         <iframe id="figma-iframe" src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <div>
-        <p>Click on the link to open a popup:</p>
-        <a href="?showPopup=true">Open Popup</a>
     </div>
 
     <!-- Popup Overlay -->
     <div id="popup-overlay" class="popup-overlay">
         <div class="popup-content">
-            <h2>This is a popup!</h2>
-            <p>Here is some content inside the popup.</p>
+            <h2>This is a Popup!</h2>
+            <p>Content inside the popup.</p>
             <button class="popup-close" onclick="closePopup()">Close</button>
         </div>
     </div>
@@ -86,7 +82,7 @@
             document.getElementById("popup-overlay").style.display = "none";
         }
 
-        // Check if URL contains the parameter to show the popup
+        // Check URL for the 'showPopup' parameter
         function checkUrlForPopup() {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('showPopup') && urlParams.get('showPopup') === 'true') {
