@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Popup Trigger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        /* Popup styling */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 1000;
+        }
+
+        #popup .popup-content {
+            background: #fff;
+            color: black;
+            padding: 20px;
+            width: 300px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="popup">
+        <div class="popup-content">
+            <span id="closeBtn">X</span>
+            <h3>Popup Content</h3>
+            <p>This is the content of the popup triggered from Figma.</p>
+        </div>
+    </div>
+
+    <script>
+        // Show the popup
+        function openPopup() {
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        // Close the popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Close the popup when 'X' is clicked
+        document.getElementById("closeBtn").onclick = closePopup;
+
+        // Trigger the popup when the page is loaded (based on URL)
+        if (window.location.href.indexOf("open-popup") > -1) {
+            openPopup();
+        }
+    </script>
+
+</body>
+</html>
