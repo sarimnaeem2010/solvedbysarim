@@ -3,31 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figma Prototype with Popup</title>
+    <title>Embedded Figma Prototype with Popup</title>
     <style>
-        /* Basic styling for the page */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        h1 {
-            margin-top: 20px;
+        /* Styling for iframe */
+        .figma-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
         }
 
         iframe {
             width: 100%;
-            height: 600px;
+            height: 100%;
             border: none;
         }
 
-        /* Styling for the popup */
-        #popup {
+        /* Styling for the popup overlay */
+        .popup-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -35,83 +27,75 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
             justify-content: center;
             align-items: center;
-            color: white;
-            z-index: 1000;
         }
 
-        #popup .popup-content {
-            background: #fff;
+        .popup-content {
+            background-color: white;
             padding: 20px;
-            width: 300px;
             border-radius: 5px;
-            color: black;
-            position: relative;
+            width: 400px;
+            text-align: center;
         }
 
-        #closeBtn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .popup-close {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 20px;
-            color: black;
+            font-size: 16px;
+        }
+
+        .popup-close:hover {
+            background-color: darkred;
         }
     </style>
 </head>
 <body>
 
-    <h1>My Figma Prototype with Popup</h1>
+    <div class="figma-container">
+        <iframe id="figma-iframe" src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" frameborder="0" allowfullscreen></iframe>
+    </div>
 
-    <!-- Figma Prototype iframe -->
-    <iframe id="figma-frame" src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" 
-    width="100%" height="600px" frameborder="0"></iframe>
+    <div>
+        <p>Click on the link to open a popup:</p>
+        <a href="?showPopup=true">Open Popup</a>
+    </div>
 
-    <!-- Hidden Popup -->
-    <div id="popup">
+    <!-- Popup Overlay -->
+    <div id="popup-overlay" class="popup-overlay">
         <div class="popup-content">
-            <span id="closeBtn">X</span>
-            <h3>Popup Content</h3>
-            <p>This is the content of the popup. You can add any HTML here.</p>
+            <h2>This is a popup!</h2>
+            <p>Here is some content inside the popup.</p>
+            <button class="popup-close" onclick="closePopup()">Close</button>
         </div>
     </div>
 
     <script>
-        // Function to show the popup
+        // Function to open the popup
         function openPopup() {
-            document.getElementById("popup").style.display = "flex";
+            document.getElementById("popup-overlay").style.display = "flex";
         }
 
         // Function to close the popup
         function closePopup() {
-            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup-overlay").style.display = "none";
         }
 
-        // Close popup when clicking on 'X'
-        document.getElementById("closeBtn").onclick = closePopup;
-
-        // Add a listener for message events from the iframe (Figma frame)
-        window.addEventListener("message", function(event) {
-            // Check if the message is from the Figma iframe
-            if (event.origin === "https://www.figma.com") {
-                // This listens for the custom message (e.g., when user clicks a Figma button)
-                if (event.data === "openPopup") {
-                    openPopup();
-                }
+        // Check if URL contains the parameter to show the popup
+        function checkUrlForPopup() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('showPopup') && urlParams.get('showPopup') === 'true') {
+                openPopup();
             }
-        });
-
-        // Function to trigger an action (this could be your Figma button or any action)
-        function triggerFigmaPopup() {
-            // Send a message to the iframe to trigger the popup (use the Figma button or interaction)
-            const iframe = document.getElementById("figma-frame");
-            iframe.contentWindow.postMessage("openPopup", "https://www.figma.com");
         }
 
-        // For demonstration, this will simulate triggering the Figma button to open the popup
-        setTimeout(triggerFigmaPopup, 5000); // Trigger after 5 seconds
+        // Run the check when the page loads
+        window.onload = checkUrlForPopup;
     </script>
 
 </body>
