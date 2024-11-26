@@ -50,7 +50,7 @@
             document.getElementById("popup").style.display = "none";
         }
 
-        // Listen for messages from the iframe
+        // Listen for messages from the iframe (Figma prototype)
         window.addEventListener("message", function(event) {
             // Ensure the message comes from the correct domain (Figma)
             if (event.origin !== "https://www.figma.com") {
@@ -63,7 +63,18 @@
             }
         });
 
-        // Function to send a message to the Figma iframe (use this to trigger an action from your page)
+        // Check if the URL contains the 'showPopup' parameter
+        function checkURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('showPopup')) {
+                showPopup();
+            }
+        }
+
+        // Run the URL check when the page loads
+        checkURLParams();
+
+        // Send a message to Figma when the link is clicked
         function sendMessageToFigma() {
             const iframe = document.getElementById('figma');
             iframe.contentWindow.postMessage("triggerAction", "https://www.figma.com");
