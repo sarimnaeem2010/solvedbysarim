@@ -1,36 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Direct Popup for Adobe XD Prototype</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Prototype with Popup</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Styling for the popup */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 1000;
+        }
+
+        #popup .popup-content {
+            background: #fff;
+            padding: 20px;
+            width: 300px;
+            border-radius: 5px;
+            color: black;
+            position: relative;
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 
-  <script>
-    // Function to open the popup when the page loads
-    window.onload = function() {
-      var popup = window.open(
-        'https://xd.adobe.com/view/68396073-7aca-4891-a2fe-a6f8fcd2ab6d-3d6a/?fullscreen', 
-        'Adobe XD Prototype', 
-        'width=1000,height=800,scrollbars=yes,resizable=yes'
-      );
+    <h1>My Figma Prototype with Popup</h1>
 
-      if (popup) {
-        popup.focus();
-      } else {
-        alert("Popup blocked! Please allow popups in your browser.");
-      }
-    }
-  </script>
+    <!-- Figma Prototype iframe -->
+    <iframe src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" 
+    width="100%" height="600px" frameborder="0"></iframe>
+
+    <!-- Hidden Popup -->
+    <div id="popup">
+        <div class="popup-content">
+            <span id="closeBtn">X</span>
+            <h3>Popup Content</h3>
+            <p>This is the content of the popup. You can add any HTML here.</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the popup
+        function openPopup() {
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Close popup when clicking on 'X'
+        document.getElementById("closeBtn").onclick = closePopup;
+
+        // Check for 'popup=true' in the URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('popup') === 'true') {
+            openPopup();  // Show the popup if the parameter is set
+        }
+    </script>
 
 </body>
 </html>
