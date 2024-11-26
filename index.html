@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Figma Embed with Contact Us</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 1920px;
+      padding: 0 120px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      zoom: 1; /* Ensures content stays at its default scale */
+    }
+    .contact-us {
+      width: 100%;
+      max-width: 960px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .contact-us h2 {
+      margin: 0 0 15px;
+      color: #333;
+      font-size: 24px;
+    }
+    .contact-us form {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-us label {
+      margin-bottom: 5px;
+      color: #555;
+      font-size: 14px;
+    }
+    .contact-us input,
+    .contact-us textarea {
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .contact-us textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .contact-us button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-us button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+      z-index: 1000; /* Ensure modal is on top */
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <iframe src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" allowfullscreen></iframe>
+  </div>
+
+  <!-- Contact Us Section -->
+  <div class="contact-us">
+    <h2>Contact Us</h2>
+    <form action="https://example.com/contact" method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- Button to open the popup -->
+  <button onclick="openModal()">Open Adobe XD Prototype</button>
+
+  <!-- Modal for Adobe XD Prototype -->
+  <div id="xdModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <iframe src="https://xd.adobe.com/view/68396073-7aca-4891-a2fe-a6f8fcd2ab6d-3d6a/?fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Function to open the modal
+    function openModal() {
+      document.getElementById('xdModal').style.display = 'flex';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('xdModal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
