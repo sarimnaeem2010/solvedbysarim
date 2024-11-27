@@ -3,82 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figma Prototype Interaction</title>
+    <title>Embedded Figma Prototype</title>
     <style>
-        /* Style for the popup */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 9999;
-        }
-
-        #popup button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 <body>
-    <!-- Figma Prototype embedded via iframe -->
-    <iframe id="figma" src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/ArtbySarim-Portfolio?node-id=170-389&node-type=canvas&t=VrxCVKS3cS2XonuJ-0&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1"
-            width="100%" height="500px" style="border: none;"></iframe>
-
-    <!-- Popup HTML -->
-    <div id="popup">
-        <p>This is a popup triggered from Figma action!</p>
-        <button onclick="closePopup()">Close</button>
-    </div>
-
-    <script>
-        // Function to show the popup
-        function showPopup() {
-            document.getElementById("popup").style.display = "block";
-        }
-
-        // Function to close the popup
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
-
-        // Listen for messages from the iframe (Figma prototype)
-        window.addEventListener("message", function(event) {
-            // Ensure the message comes from the correct domain (Figma)
-            if (event.origin !== "https://www.figma.com") {
-                return;
-            }
-
-            // Check the message data to trigger the popup
-            if (event.data === "showPopup") {
-                showPopup();
-            }
-        });
-
-        // Check if the URL contains the 'showPopup' parameter
-        function checkURLParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('showPopup')) {
-                showPopup();
-            }
-        }
-
-        // Run the URL check when the page loads
-        checkURLParams();
-
-        // Send a message to Figma when the link is clicked
-        function sendMessageToFigma() {
-            const iframe = document.getElementById('figma');
-            iframe.contentWindow.postMessage("triggerAction", "https://www.figma.com");
-        }
-    </script>
+    <iframe 
+        style="border: 1px solid rgba(0, 0, 0, 0.1);" 
+        width="800" 
+        height="450" 
+        src="https://www.figma.com/proto/cLgzQeKLi7ooqv0yTMN0Cu/Solved-By-Sarim---Portfolio-Site?node-id=170-389&node-type=frame&t=rRy7TgtstqZoNSOJ-0&scaling=min-zoom&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=170%3A389&hide-ui=1" 
+        allowfullscreen>
+    </iframe>
 </body>
 </html>
